@@ -1,8 +1,15 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { useStoreActions, useStoreState } from './store/StoreFront';
 
 function App() {
+  const isClick = useStoreState((store) => {
+    return store.testingModel.isClick;
+  })
+  const {toggleClick} = useStoreActions((action) => {
+    return action.testingModel;
+  })
   return (
     <div className="App">
       <header className="App-header">
@@ -10,14 +17,13 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-        <a
+        <button
           className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+          onClick= {() => toggleClick()}
         >
           Learn React
-        </a>
+          {console.log(isClick)}
+        </button>
       </header>
     </div>
   );
