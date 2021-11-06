@@ -24,12 +24,12 @@ public class Portfolio {
         
         long unixTime = System.currentTimeMillis() / 1000L;
         
-        CoinInstance purchase = new CoinInstance(quantity, Coin.getPriceFromName(name), timeOfPurchase)
+        CoinInstance purchase = new CoinInstance(quantity, Coin.getPriceFromName(name), String.valueOf(unixTime));
         
-        if(purchasedCoinsList.find(name))
-        {
+        // if(purchasedCoinsList.find(name))
+        // {
 
-        }
+        // }
         
         return 1;
     }
