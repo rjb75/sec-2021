@@ -19,5 +19,6 @@ public class App
         wsocket.start();
         System.out.println("Got here");
         wsocket.broadcastMessage("This is officially working :");
+       // new Coin().getPriceFromName("zoracles");
     }
 }

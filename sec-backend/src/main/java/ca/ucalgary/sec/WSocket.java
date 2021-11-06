@@ -32,6 +32,7 @@ public class WSocket extends WebSocketServer {
 
         logger.info("Connection established from: " + webSocket.getRemoteSocketAddress().getHostString());
         System.out.println("New connection from " + webSocket.getRemoteSocketAddress().getAddress().getHostAddress());
+
     }
 
     @Override
@@ -44,7 +45,15 @@ public class WSocket extends WebSocketServer {
     @Override
     public void onMessage(WebSocket conn, String message) {
         ObjectMapper mapper = new ObjectMapper();
-      
+        try {
+            PortfolioParse msg = mapper.readValue(message, PortfolioParse.class);
+            System.out.println(msg.action);
+            System.out.println(msg.p.title);
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
