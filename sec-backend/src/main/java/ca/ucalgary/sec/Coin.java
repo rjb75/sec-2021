@@ -20,10 +20,9 @@ public class Coin {
     
     String id;
 
-    Double
 
-    public Coin(){
-
+    public Coin(String id){
+        this.id = id;
     }
 
     public static double getPriceFromName(String cryptoName){

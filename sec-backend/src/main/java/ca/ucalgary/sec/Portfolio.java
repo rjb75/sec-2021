@@ -21,6 +21,13 @@ public class Portfolio {
     }
 
     public int purchaseCoin(String name, int quantity){ // 
+        CoinInstance purchase = new CoinInstance(quantity, Coin.getPriceFromName(name), timeOfPurchase)
+        
+        if(purchasedCoinsList.find(name))
+        {
+
+        }
+        
         return 1;
     }
     

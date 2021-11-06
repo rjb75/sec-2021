@@ -46,7 +46,7 @@ public class WSocket extends WebSocketServer {
         ObjectMapper mapper = new ObjectMapper();
         try {
             PortfolioParse msg = mapper.readValue(message, PortfolioParse.class);
-            menu(msg, msg.action);
+            menu(msg, msg.action, conn);
             System.out.println(msg.action);
             System.out.println(msg.payload.title);
 
@@ -55,7 +55,7 @@ public class WSocket extends WebSocketServer {
         }
     }
 
-    private void menu(PortfolioParse msg, String action){
+    private void menu(PortfolioParse msg, String action, WebSocket conn){
         if(action == "create-portfolio"){
             portfolios.add(new Portfolio(msg.payload.title, msg.payload.watchList));
 
@@ -65,15 +65,19 @@ public class WSocket extends WebSocketServer {
            
             try{
                 String messageJson = mapper.writeValueAsString(msg);
-                for (WebSocket sock : conns) {
-                    sock.send(messageJson);
-                } 
+                conn.send(messageJson);
             } catch(Exception e){
 
             }
-    }
+        } else if(action == "purchase-coin"){
+            portfolios.get(Integer.parseInt(msg.payload.id)).purchaseCoin(msg.payload.id, Integer.parseInt(msg.payload.amount));
+         
+        }
     }
 
+    private void sendMessage(Portfolio msg){
+        
+    }
     @Override
     public void onError(WebSocket conn, Exception ex) {
 

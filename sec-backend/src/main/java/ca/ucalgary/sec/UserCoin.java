@@ -7,8 +7,8 @@ public class UserCoin extends CoinType{
     private double profitLoss;
 
     //constructors
-    public UserCoin() {
-        super();
+    public UserCoin(String id) {
+        super(id);
         totalCoins = new ArrayList<>();
         profitLoss = 0;
     }
