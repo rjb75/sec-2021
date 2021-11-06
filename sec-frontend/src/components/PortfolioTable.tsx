@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect, useState } from "react";
 import { Column, useFilters, usePagination, useRowSelect, useTable } from "react-table";
 import { SelectionPayload } from "../store/misc/table.store";
@@ -37,10 +38,11 @@ export const PortfolioTable = () => {
 
     
 
-    function createMessage(d: any): ActionPayload {
-        const list = {d.map(i => {i.values.id})}
+    function createMessage(d: any): any {
+        const list = d.map(a => a.values.id)
+        console.log(list)
         const payload = { title: "test-portfolio", watchList: list }
-        sock.send(JSON.stringify(d => 
+        sock.send(JSON.stringify(payload))
     }
 
     // const createMessage = (data: SelectionPayload) => {
