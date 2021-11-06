@@ -11,13 +11,12 @@ import org.java_websocket.server.WebSocketServer;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class WSocket extends WebSocketServer {
 
     private final static Logger logger = LogManager.getLogger(WSocket.class);
+    ArrayList<Portfolio> portfolios;
 
     private Set<WebSocket> conns;
 
@@ -47,13 +46,32 @@ public class WSocket extends WebSocketServer {
         ObjectMapper mapper = new ObjectMapper();
         try {
             PortfolioParse msg = mapper.readValue(message, PortfolioParse.class);
+            menu(msg, msg.action);
             System.out.println(msg.action);
-            System.out.println(msg.p.title);
+            System.out.println(msg.payload.title);
 
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
+    }
 
+    private void menu(PortfolioParse msg, String action){
+        if(action == "create-portfolio"){
+            portfolios.add(new Portfolio(msg.payload.title, msg.payload.watchList));
+
+
+            ObjectMapper mapper = new ObjectMapper();
+            msg.action = "portfolio-created";
+           
+            try{
+                String messageJson = mapper.writeValueAsString(msg);
+                for (WebSocket sock : conns) {
+                    sock.send(messageJson);
+                } 
+            } catch(Exception e){
+
+            }
+    }
     }
 
     @Override

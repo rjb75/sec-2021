@@ -9,7 +9,7 @@ class PortfolioParse{
 
     @SerializedName("payload")
     @Expose
-    public Payload p;
+    public Payload payload;
 
     public class Payload {
 
@@ -24,6 +24,14 @@ class PortfolioParse{
         @SerializedName("watchList")
         @Expose
         public String[] watchList;
+        
+        @SerializedName("amount")
+        @Expose
+        public String amount;
+
+        @SerializedName("coin")
+        @Expose
+        public String coin;
 
     }
 }

@@ -18,6 +18,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class Coin {
     
+    String id;
+
+    Double
+
     public Coin(){
 
     }

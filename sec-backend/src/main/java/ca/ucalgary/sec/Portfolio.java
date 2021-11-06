@@ -4,15 +4,23 @@ import java.util.*;
 
 public class Portfolio {
     private int id;
+    private String name;
     private HashMap<String, UserCoin> purchasedCoinsList;
     private ArrayList<Transaction> transactionList;
-    private ArrayList<UserCoin> watchList;
+    private List<String> watchList;
+    static int totalPortfolios = 0;
 
     public Portfolio(){
 
     }
 
-    public int purchaseCoin(String name){
+    public Portfolio(String title, String[] watchList){
+        this.watchList = Arrays.asList(watchList);
+        this.name = name;
+        this.id = totalPortfolios++;
+    }
+
+    public int purchaseCoin(String name, int quantity){ // 
         return 1;
     }
     
