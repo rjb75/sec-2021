@@ -2,7 +2,7 @@ package ca.ucalgary.sec;
 
 import java.util.*;
 
-public class UserCoin extends CoinType{
+public class UserCoin extends Coin{
     public ArrayList<CoinInstance> totalCoins;
     private double profitLoss;
 

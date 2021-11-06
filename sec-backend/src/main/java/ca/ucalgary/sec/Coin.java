@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Coin {
     
-    String id;
+    public String id;
 
 
     public Coin(String id){

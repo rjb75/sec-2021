@@ -14,7 +14,18 @@ function App() {
         watchList: ["Hey", "ho"],
       },
     };
+
+    const test2 = {
+      action: "purchase-coin",
+      payload: {
+        id: "0",
+        coin: "bitcoin",
+        amount: "2",
+      },
+    };
+
     sock.send(JSON.stringify(test));
+    sock.send(JSON.stringify(test2));
   };
 
   sock.onmessage = (message) => {

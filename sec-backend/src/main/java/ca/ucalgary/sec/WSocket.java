@@ -16,7 +16,7 @@ import java.util.*;
 public class WSocket extends WebSocketServer {
 
     private final static Logger logger = LogManager.getLogger(WSocket.class);
-    ArrayList<Portfolio> portfolios;
+    ArrayList<Portfolio> portfolios = new ArrayList<>();
 
     private Set<WebSocket> conns;
 
@@ -56,27 +56,40 @@ public class WSocket extends WebSocketServer {
     }
 
     private void menu(PortfolioParse msg, String action, WebSocket conn){
+        System.out.println(action);
+
         if(action.contains("create-portfolio")){
-            conn.send("testing");
             portfolios.add(new Portfolio(msg.payload.title, msg.payload.watchList));
-            // ObjectMapper mapper = new ObjectMapper();
-            // msg.action = "portfolio-created";
+            
+            ObjectMapper mapper = new ObjectMapper();
+            msg.action = "portfolio-created";
            
-            // try{
-            //     String messageJson = mapper.writeValueAsString(msg);
-            //     conn.send(messageJson);
+            try{
+                String messageJson = mapper.writeValueAsString(msg);
+                conn.send(messageJson);
+                System.out.println(messageJson);
 
-            // } catch(Exception e){
+            } catch(Exception e){
 
-            // }
-        } else if(action == "purchase-coin"){
-            portfolios.get(Integer.parseInt(msg.payload.id)).purchaseCoin(msg.payload.id, Integer.parseInt(msg.payload.amount));
-         
+            }
+        } else if(action.contains("purchase-coin")){
+            CoinInstance temp = portfolios.get(Integer.parseInt(msg.payload.id)).purchaseCoin(msg.payload.coin, Integer.parseInt(msg.payload.amount));
+            msg.payload.amount = String.valueOf(temp.getQuantity());
+            msg.payload.rate = String.valueOf(temp.getPrice());
+            msg.payload.date = temp.getTimeOfPurchase();
+            ObjectMapper mapper = new ObjectMapper();
+            msg.action = "purchase-success";
+           
+            try{
+                String messageJson = mapper.writeValueAsString(msg);
+                conn.send(messageJson);
+                System.out.println(messageJson);
+
+            } catch(Exception e){
+
+            }
+
         }
-    }
-
-    private void sendMessage(Portfolio msg){
-        
     }
 
     @Override

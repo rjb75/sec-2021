@@ -15,23 +15,29 @@ public class Portfolio {
     }
 
     public Portfolio(String title, String[] watchList){
-        this.watchList = Arrays.asList(watchList);
+        System.out.println("came here");
+        this.watchList = new ArrayList<>(Arrays.asList(watchList));
         this.name = name;
         this.id = totalPortfolios++;
+        this.purchasedCoinsList = new HashMap<>();
+        this.transactionList = new ArrayList<>();
     }
 
-    public int purchaseCoin(String name, int quantity){ // 
-        
+    public CoinInstance purchaseCoin(String name, int quantity){ // 
+        System.out.println("entered purchase function");
         long unixTime = System.currentTimeMillis() / 1000L;
         
         CoinInstance purchase = new CoinInstance(quantity, Coin.getPriceFromName(name), String.valueOf(unixTime));
         
-        // if(purchasedCoinsList.find(name))
-        // {
+        if(!purchasedCoinsList.containsKey(name))
+        {
+            purchasedCoinsList.put(name , new UserCoin(name));
+            
+        }
 
-        // }
+        purchasedCoinsList.get(name).addCoin(purchase);
         
-        return 1;
+        return purchase;
     }
     
     public HashMap<String, UserCoin> getPurchasedCoinsList() {

@@ -33,5 +33,13 @@ class PortfolioParse{
         @Expose
         public String coin;
 
+        @SerializedName("rate")
+        @Expose
+        public String rate;
+
+        @SerializedName("date")
+        @Expose
+        public String date;
+
     }
 }
