@@ -59,17 +59,16 @@ public class WSocket extends WebSocketServer {
         if(action.contains("create-portfolio")){
             conn.send("testing");
             portfolios.add(new Portfolio(msg.payload.title, msg.payload.watchList));
-            ObjectMapper mapper = new ObjectMapper();
-            msg.action = "portfolio-created";
+            // ObjectMapper mapper = new ObjectMapper();
+            // msg.action = "portfolio-created";
            
-            try{
-                String messageJson = mapper.writeValueAsString(msg);
-                for (WebSocket sock : conns) {
-                    sock.send(messageJson);
-                } 
-            } catch(Exception e){
+            // try{
+            //     String messageJson = mapper.writeValueAsString(msg);
+            //     conn.send(messageJson);
 
-            }
+            // } catch(Exception e){
+
+            // }
         } else if(action == "purchase-coin"){
             portfolios.get(Integer.parseInt(msg.payload.id)).purchaseCoin(msg.payload.id, Integer.parseInt(msg.payload.amount));
          
