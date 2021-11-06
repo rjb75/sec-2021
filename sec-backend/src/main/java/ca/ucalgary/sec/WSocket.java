@@ -56,7 +56,7 @@ public class WSocket extends WebSocketServer {
     }
 
     private void menu(PortfolioParse msg, String action, WebSocket conn){
-        if(action == "create-portfolio"){
+        if(action.contains("create-portfolio")){
             portfolios.add(new Portfolio(msg.payload.title, msg.payload.watchList));
 
 
@@ -65,7 +65,9 @@ public class WSocket extends WebSocketServer {
            
             try{
                 String messageJson = mapper.writeValueAsString(msg);
-                conn.send(messageJson);
+                for (WebSocket sock : conns) {
+                    sock.send(messageJson);
+                } 
             } catch(Exception e){
 
             }
