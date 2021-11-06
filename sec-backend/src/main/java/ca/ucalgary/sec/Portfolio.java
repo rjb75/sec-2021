@@ -21,6 +21,9 @@ public class Portfolio {
     }
 
     public int purchaseCoin(String name, int quantity){ // 
+        
+        long unixTime = System.currentTimeMillis() / 1000L;
+        
         CoinInstance purchase = new CoinInstance(quantity, Coin.getPriceFromName(name), timeOfPurchase)
         
         if(purchasedCoinsList.find(name))
