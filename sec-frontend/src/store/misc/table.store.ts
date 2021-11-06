@@ -1,6 +1,7 @@
 import { action, Action, thunk, Thunk } from "easy-peasy";
 
 export interface SelectionPayload {
+  title: string
   watchList: string[]
 }
 
