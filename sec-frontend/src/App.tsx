@@ -1,37 +1,21 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import React from 'react';
+import logo from './logo.svg';
+import './App.css';
+import { useStoreActions, useStoreState } from './store/StoreFront';
 
 function App() {
   const sock = new WebSocket("ws://localhost:3002");
   sock.onopen = () => {
     console.info("connected to socket");
 
-    const test = {
-      action: "create-portfolio",
-      payload: {
-        title: "portfolio-title",
-        watchList: ["Hey", "ho"],
-      },
     };
 
-    const test2 = {
-      action: "purchase-coin",
-      payload: {
-        id: "0",
-        coin: "bitcoin",
-        amount: "2",
-      },
-    };
-
-    sock.send(JSON.stringify(test));
-    sock.send(JSON.stringify(test2));
-  };
-
-  sock.onmessage = (message) => {
-    console.info(message);
-  };
-
+  const isClick = useStoreState((store) => {
+    return store.testingModel.isClick;
+  })
+  const {toggleClick} = useStoreActions((action) => {
+    return action.testingModel;
+  })
   return (
     <div className="App">
       <header className="App-header">
@@ -39,14 +23,13 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-        <a
+        <button
           className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+          onClick= {() => toggleClick()}
         >
           Learn React
-        </a>
+          {console.log(isClick)}
+        </button>
       </header>
     </div>
   );
